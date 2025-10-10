@@ -107,7 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
             const Text('Welcome to the Sandwich shop!'),
             Text(
               'You have ordered $_counter sandwiches.',
-              style: Theme.of(context).textTheme.headlineMedium,
+              style: Theme.of(context).textTheme.headlineMedium?.copyWith(color: Colors.purple,
             ),
           ],
         )
