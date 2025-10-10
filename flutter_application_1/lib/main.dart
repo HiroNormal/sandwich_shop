@@ -108,7 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
             style: TextStyle(fontStyle: FontStyle.italic),),
             Text(
               'You have ordered $_counter sandwiches.',
-              style: Theme.of(context).textTheme.headlineMedium?.copyWith(color: Colors.purple,)
+              style: TextStyle(color: Colors.purple, fontSize: 40)
             ),
           ],
         )
