@@ -54,7 +54,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
 
   void _incrementCounter() {
     setState(() {
@@ -63,7 +62,6 @@ class _MyHomePageState extends State<MyHomePage> {
       // so that the display can reflect the updated values. If we changed
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
-      _counter++;
     });
   }
 
@@ -105,11 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text('Welcome to the Sandwich shop!',
-            style: TextStyle(fontStyle: FontStyle.italic),),
-            Text(
-              'You have ordered $_counter sandwiches.',
-              style: TextStyle(color: Colors.purple, fontSize: 40)
-            ),
+            style: TextStyle(fontStyle: FontStyle.italic),)
           ],
         )
       ),
