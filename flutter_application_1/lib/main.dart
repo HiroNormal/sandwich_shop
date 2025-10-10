@@ -104,10 +104,11 @@ class _MyHomePageState extends State<MyHomePage> {
           // wireframe for each widget.
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text('Welcome to the Sandwich shop!'),
+            const Text('Welcome to the Sandwich shop!',
+            style: TextStyle(fontStyle: FontStyle.italic),),
             Text(
               'You have ordered $_counter sandwiches.',
-              style: Theme.of(context).textTheme.headlineMedium?.copyWith(color: Colors.purple,
+              style: Theme.of(context).textTheme.headlineMedium?.copyWith(color: Colors.purple,)
             ),
           ],
         )
