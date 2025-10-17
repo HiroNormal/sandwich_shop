@@ -15,7 +15,7 @@ class App extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(title: const Text('Sandwich Counter')),
         body: const Center(
-          child: Text('Welcome to the Sandwich Shop!'),
+          child: OrderItemDisplay(5, 'Footlong'),
         ),
       ),
     );
@@ -32,4 +32,4 @@ class OrderItemDisplay extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text('$quantity $itemType sandwich(es): ${'🥪' * quantity}');
     }
- }
+}
