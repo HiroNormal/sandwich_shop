@@ -9,33 +9,9 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Sandwich Shop App',
-      home: Scaffold(
-        appBar: AppBar(title: const Text('Sandwich Counter')),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const OrderItemDisplay(5, 'Footlong'),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                    onPressed: () => print('Add button pressed!'),
-                    child: const Text('Add'),
-                  ),
-                  const SizedBox(width: 10), // small space between buttons
-                  ElevatedButton(
-                    onPressed: () => print('Remove button pressed!'),
-                    child: const Text('Remove'),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
+      home: OrderScreen(maxQuantity: 5),
     );
   }
 }
@@ -46,20 +22,58 @@ class OrderScreen extends StatefulWidget {
   const OrderScreen({super.key, this.maxQuantity = 10});
 
   @override
-  State<OrderScreen> createState() {
-    return _OrderScreenState();
-  }
+  State<OrderScreen> createState() => _OrderScreenState();
 }
 
 class _OrderScreenState extends State<OrderScreen> {
   int _quantity = 0;
 
+  void _addItem() {
+    if (_quantity < widget.maxQuantity) {
+      setState(() {
+        _quantity++;
+      });
+    }
+  }
+
+  void _removeItem() {
+    if (_quantity > 0) {
+      setState(() {
+        _quantity--;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(title: const Text('Sandwich Counter')),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            OrderItemDisplay(_quantity, 'Footlong'),
+            const SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: _addItem,
+                  child: const Text('Add'),
+                ),
+                const SizedBox(width: 10),
+                ElevatedButton(
+                  onPressed: _removeItem,
+                  child: const Text('Remove'),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
-
 
 class OrderItemDisplay extends StatelessWidget {
   final int count;
@@ -75,4 +89,3 @@ class OrderItemDisplay extends StatelessWidget {
     );
   }
 }
-
