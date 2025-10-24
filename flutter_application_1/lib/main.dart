@@ -49,20 +49,25 @@ class _OrderScreenState extends State<OrderScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             OrderItemDisplay(_quantity, 'Footlong'),
-            const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                  onPressed: _increaseQuantity,
-                  child: const Text('Add'),
-                ),
-                const SizedBox(width: 10),
-                ElevatedButton(
-                  onPressed: _decreaseQuantity,
-                  child: const Text('Remove'),
-                ),
-              ],
+            const SizedBox(height: 30),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  StyledButton(
+                    onPressed: _decreaseQuantity,
+                    label: 'Remove',
+                    icon: Icons.remove,
+                  ),
+                  const SizedBox(width: 10), 
+                  StyledButton(
+                    onPressed: _quantity < widget.maxQuantity ? _increaseQuantity : null,
+                    label: 'Add',
+                    icon: Icons.add,
+                  ),
+                ],
+              ),
             ),
           ],
         ),
@@ -81,7 +86,37 @@ class OrderItemDisplay extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       '$count x $itemName',
-      style: const TextStyle(fontSize: 24),
+      style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+    );
+  }
+}
+
+class StyledButton extends StatelessWidget {
+  final VoidCallback? onPressed;
+  final String label;
+  final IconData icon;
+
+  const StyledButton({
+    super.key,
+    required this.onPressed,
+    required this.label,
+    required this.icon,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton.icon(
+      onPressed: onPressed,
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.purple,
+        foregroundColor: Colors.white,
+        textStyle: const TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+      icon: Icon(icon),
+      label: Text(label),
     );
   }
 }
