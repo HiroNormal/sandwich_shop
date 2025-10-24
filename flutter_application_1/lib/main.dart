@@ -27,6 +27,7 @@ class OrderScreen extends StatefulWidget {
 
 class _OrderScreenState extends State<OrderScreen> {
   int _quantity = 0;
+  String _sandwichType = 'Footlong'; // New state for sandwich type
 
   void _increaseQuantity() {
     if (_quantity < widget.maxQuantity) {
@@ -48,7 +49,25 @@ class _OrderScreenState extends State<OrderScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            OrderItemDisplay(_quantity, 'Footlong'),
+            // Sandwich Type Selector
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30.0),
+              child: SegmentedButton<String>(
+                segments: const <ButtonSegment<String>>[
+                  ButtonSegment<String>(value: 'Footlong', label: Text('Footlong')),
+                  ButtonSegment<String>(value: 'Six-inch', label: Text('Six-inch')),
+                ],
+                selected: <String>{_sandwichType},
+                onSelectionChanged: (Set<String> newSelection) {
+                  setState(() {
+                    _sandwichType = newSelection.first;
+                  });
+                },
+              ),
+            ),
+            const SizedBox(height: 30),
+            // Display quantity and sandwich type
+            OrderItemDisplay(_quantity, _sandwichType),
             const SizedBox(height: 30),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30.0),
@@ -60,7 +79,7 @@ class _OrderScreenState extends State<OrderScreen> {
                     label: 'Remove',
                     icon: Icons.remove,
                   ),
-                  const SizedBox(width: 10), 
+                  const SizedBox(width: 10),
                   StyledButton(
                     onPressed: _quantity < widget.maxQuantity ? _increaseQuantity : null,
                     label: 'Add',
