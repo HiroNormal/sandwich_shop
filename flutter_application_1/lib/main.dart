@@ -14,13 +14,24 @@ class App extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(title: const Text('Sandwich Counter')),
         body: Center(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: const [
-              OrderItemDisplay(5, 'Footlong'),
-              OrderItemDisplay(3, 'Half'),
-              OrderItemDisplay(2, 'Mini'),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const OrderItemDisplay(5, 'Footlong'),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: () => print('Add button pressed!'),
+                    child: const Text('Add'),
+                  ),
+                  const SizedBox(width: 10), // small space between buttons
+                  ElevatedButton(
+                    onPressed: () => print('Remove button pressed!'),
+                    child: const Text('Remove'),
+                  ),
+                ],
+              ),
             ],
           ),
         ),
@@ -29,23 +40,39 @@ class App extends StatelessWidget {
   }
 }
 
-class OrderItemDisplay extends StatelessWidget {
-  final String itemType;
-  final int quantity;
+class OrderScreen extends StatefulWidget {
+  final int maxQuantity;
 
-  const OrderItemDisplay(this.quantity, this.itemType, {super.key});
+  const OrderScreen({super.key, this.maxQuantity = 10});
+
+  @override
+  State<OrderScreen> createState() {
+    return _OrderScreenState();
+  }
+}
+
+class _OrderScreenState extends State<OrderScreen> {
+  int _quantity = 0;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: const Color.fromARGB(255, 255, 0, 115),
-      width: 210.0,
-      height: 210.0,
-      alignment: Alignment.center,
-      child: Text(
-        '$quantity $itemType sandwich(es): ${List.filled(quantity, '🥪').join()}',
-        textAlign: TextAlign.center,
-      ),
+    return const Placeholder();
+  }
+}
+
+
+class OrderItemDisplay extends StatelessWidget {
+  final int count;
+  final String itemName;
+
+  const OrderItemDisplay(this.count, this.itemName, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      '$count x $itemName',
+      style: const TextStyle(fontSize: 24),
     );
   }
 }
+
