@@ -1,5 +1,4 @@
 import 'package:sandwich_shop/views/app_styles.dart';
-import 'package:sandwich_shop/repositories/order_repository.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -34,14 +33,7 @@ class _OrderScreenState extends State<OrderScreen> {
   bool _isToasted = false;
   BreadType _selectedBreadType = BreadType.white;
 
-  @override
-  void initState() {
-    super.initState();
-    _orderRepository = OrderRepository(maxQuantity: widget.maxQuantity);
-    _notesController.addListener(() {
-      setState(() {});
-    });
-  }
+
 
   @override
   void dispose() {
