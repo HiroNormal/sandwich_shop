@@ -37,6 +37,10 @@ class _OrderScreenState extends State<OrderScreen> {
   BreadType _selectedBreadType = BreadType.white;
   int _quantity = 1;
 
+  // New local summary state
+  int _cartItemCount = 0;
+  double _cartTotal = 0.0;
+
   @override
   void initState() {
     super.initState();
@@ -59,8 +63,13 @@ class _OrderScreenState extends State<OrderScreen> {
         breadType: _selectedBreadType,
       );
 
+      // Update cart model and local summary together
       setState(() {
         _cart.add(sandwich, quantity: _quantity);
+
+        // Update simple local summary so UI reflects cart state immediately
+        _cartItemCount += _quantity;
+        _cartTotal += (sandwich.price * _quantity);
       });
 
       String sizeText;
@@ -253,6 +262,24 @@ class _OrderScreenState extends State<OrderScreen> {
                 label: 'Add to Cart',
                 backgroundColor: Colors.green,
               ),
+              const SizedBox(height: 20),
+
+              // Permanent cart summary card
+              Card(
+                margin: const EdgeInsets.symmetric(horizontal: 16),
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('Items: $_cartItemCount', style: normalText),
+                      Text('Total: \$${_cartTotal.toStringAsFixed(2)}',
+                          style: heading1),
+                    ],
+                  ),
+                ),
+              ),
+
               const SizedBox(height: 20),
             ],
           ),

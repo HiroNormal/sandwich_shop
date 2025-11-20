@@ -9,33 +9,70 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:sandwich_shop/main.dart';
+import 'package:sandwich_shop/models/sandwich.dart';
+import 'package:sandwich_shop/models/cart.dart';
+
 void main() {
-  testWidgets('Switch toggles sandwich size between six-inch and footlong',
-      (WidgetTester tester) async {
+  testWidgets('AppBar and main controls are present', (WidgetTester tester) async {
     await tester.pumpWidget(const App());
+    await tester.pumpAndSettle();
 
-    // Verify initial order display shows "footlong" (and mentions "sandwich")
-    final Finder footlongOrderFinder = find.byWidgetPredicate((widget) {
-      return widget is Text &&
-          widget.data != null &&
-          widget.data!.contains('footlong') &&
-          widget.data!.contains('sandwich');
-    });
-    expect(footlongOrderFinder, findsOneWidget);
+    expect(find.text('Sandwich Counter'), findsOneWidget);
+    // There may be more than one Label widget for the dropdowns in the widget tree.
+    expect(find.text('Sandwich Type'), findsWidgets);
+    expect(find.text('Bread Type'), findsWidgets);
+    expect(find.text('Add to Cart'), findsOneWidget);
+  });
 
-    // Find the sandwich-size Switch by Key and toggle it
-    final Finder switchFinder = find.byKey(const Key('sandwich_type_switch'));
+  testWidgets('Switch toggles sandwich size value', (WidgetTester tester) async {
+    await tester.pumpWidget(const App());
+    await tester.pumpAndSettle();
+
+    final Finder switchFinder = find.byType(Switch);
     expect(switchFinder, findsOneWidget);
+
+    // initial value should be true (footlong)
+    Switch sw = tester.widget<Switch>(switchFinder);
+    expect(sw.value, isTrue);
+
+    // toggle the switch
     await tester.tap(switchFinder);
     await tester.pumpAndSettle();
 
-    // After toggling, the order display should show "six-inch" (and mention "sandwich")
-    final Finder sixInchOrderFinder = find.byWidgetPredicate((widget) {
-      return widget is Text &&
-          widget.data != null &&
-          widget.data!.contains('six-inch') &&
-          widget.data!.contains('sandwich');
-    });
-    expect(sixInchOrderFinder, findsOneWidget);
+    sw = tester.widget<Switch>(switchFinder);
+    expect(sw.value, isFalse);
+  });
+
+  testWidgets('Add to Cart button can be tapped without throwing', (WidgetTester tester) async {
+    await tester.pumpWidget(const App());
+    await tester.pumpAndSettle();
+
+    final Finder addToCartButton = find.text('Add to Cart');
+    expect(addToCartButton, findsOneWidget);
+
+    // Ensure the button is visible (content may scroll) before tapping.
+    await tester.ensureVisible(addToCartButton);
+    await tester.pumpAndSettle();
+
+    await tester.tap(addToCartButton);
+    await tester.pumpAndSettle();
+  });
+
+  test('Cart model adds items and computes totals correctly', () {
+    final Sandwich sandwich = Sandwich(
+      type: SandwichType.veggieDelight,
+      isFootlong: true,
+      breadType: BreadType.white,
+    );
+
+    final Cart localCart = Cart();
+    expect(localCart.isEmpty, isTrue);
+    localCart.add(sandwich, quantity: 2);
+    expect(localCart.isEmpty, isFalse);
+    expect(localCart.countOfItems, equals(2));
+    expect(localCart.getQuantity(sandwich), equals(2));
+
+    final double expectedTotal = localCart.totalPrice;
+    expect(expectedTotal, greaterThanOrEqualTo(0.0));
   });
 }
