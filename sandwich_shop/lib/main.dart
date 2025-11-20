@@ -72,7 +72,15 @@ class _OrderScreenState extends State<OrderScreen> {
       String confirmationMessage =
           'Added $_quantity $sizeText ${sandwich.name} sandwich(es) on ${_selectedBreadType.name} bread to cart';
 
-      debugPrint(confirmationMessage);
+      // Show transient pop-up (SnackBar) with the confirmation message
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(
+          SnackBar(
+            content: Text(confirmationMessage, style: normalText),
+            duration: const Duration(seconds: 3),
+          ),
+        );
     }
   }
 
