@@ -23,8 +23,8 @@ void main() {
     });
     expect(footlongOrderFinder, findsOneWidget);
 
-    // Find the Switch and toggle it
-    final Finder switchFinder = find.byType(Switch);
+    // Find the sandwich-size Switch by Key and toggle it
+    final Finder switchFinder = find.byKey(const Key('sandwich_type_switch'));
     expect(switchFinder, findsOneWidget);
     await tester.tap(switchFinder);
     await tester.pumpAndSettle();
