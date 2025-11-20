@@ -9,22 +9,33 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:sandwich_shop/main.dart';
-
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
+  testWidgets('Switch toggles sandwich size between six-inch and footlong',
+      (WidgetTester tester) async {
     await tester.pumpWidget(const App());
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    // Verify initial order display shows "footlong" (and mentions "sandwich")
+    final Finder footlongOrderFinder = find.byWidgetPredicate((widget) {
+      return widget is Text &&
+          widget.data != null &&
+          widget.data!.contains('footlong') &&
+          widget.data!.contains('sandwich');
+    });
+    expect(footlongOrderFinder, findsOneWidget);
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    // Find the Switch and toggle it
+    final Finder switchFinder = find.byType(Switch);
+    expect(switchFinder, findsOneWidget);
+    await tester.tap(switchFinder);
+    await tester.pumpAndSettle();
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    // After toggling, the order display should show "six-inch" (and mention "sandwich")
+    final Finder sixInchOrderFinder = find.byWidgetPredicate((widget) {
+      return widget is Text &&
+          widget.data != null &&
+          widget.data!.contains('six-inch') &&
+          widget.data!.contains('sandwich');
+    });
+    expect(sixInchOrderFinder, findsOneWidget);
   });
 }
