@@ -99,6 +99,12 @@ class _OrderScreenState extends State<OrderScreen> {
       noteForDisplay = _notesController.text;
     }
 
+    // compute total price using PricingRepository
+    final int total = PricingRepository(
+      quantity: _orderRepository.quantity,
+      isFootlong: _isFootlong,
+    ).totalPrice();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -115,6 +121,12 @@ class _OrderScreenState extends State<OrderScreen> {
               itemType: sandwichType,
               breadType: _selectedBreadType,
               orderNote: noteForDisplay,
+            ),
+            const SizedBox(height: 8),
+            // Display total price
+            Text(
+              'Total: £$total',
+              style: normalText,
             ),
             const SizedBox(height: 20),
             Row(
