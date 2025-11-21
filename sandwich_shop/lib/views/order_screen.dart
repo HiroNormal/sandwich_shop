@@ -75,7 +75,7 @@ class _OrderScreenState extends State<OrderScreen> {
     return null;
   }
 
-  void _navigateToCartView() {
+  void _navigateToCartView() { //adds a new screen on top of it
     Navigator.push(
       context,
       MaterialPageRoute<void>(
