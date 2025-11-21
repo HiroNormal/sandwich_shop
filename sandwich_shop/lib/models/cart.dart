@@ -4,6 +4,7 @@ import 'package:sandwich_shop/repositories/pricing_repository.dart';
 class Cart {
   final Map<Sandwich, int> _items = {};
 
+  // Returns a read-only copy of the items and their quantities
   Map<Sandwich, int> get items => Map.unmodifiable(_items);
 
   void add(Sandwich sandwich, {int quantity = 1}) {

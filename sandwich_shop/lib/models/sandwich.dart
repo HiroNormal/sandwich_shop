@@ -18,27 +18,6 @@ class Sandwich {
     required this.breadType,
   });
 
-  // Price logic: base price per 6-inch, footlong = 2x
-  double get price {
-    double base;
-    switch (type) {
-      case SandwichType.veggieDelight:
-        base = 5.0;
-        break;
-      case SandwichType.chickenTeriyaki:
-        base = 6.5;
-        break;
-      case SandwichType.tunaMelt:
-        base = 6.0;
-        break;
-      // add other types as needed
-      default:
-        base = 5.0;
-    }
-    return isFootlong ? base * 2 : base;
-  }
-
-  // Optional helpers used by main.dart
   String get name {
     switch (type) {
       case SandwichType.veggieDelight:
@@ -53,8 +32,13 @@ class Sandwich {
   }
 
   String get image {
-    // adjust to match your assets layout
-    return 'assets/images/${type.name}_${isFootlong ? "footlong" : "sixinch"}.png';
+    String typeString = type.name;
+    String sizeString = '';
+    if (isFootlong) {
+      sizeString = 'footlong';
+    } else {
+      sizeString = 'six_inch';
+    }
+    return 'assets/images/${typeString}_$sizeString.png';
   }
 }
-
