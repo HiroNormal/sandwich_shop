@@ -123,22 +123,15 @@ class _OrderScreenState extends State<OrderScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: SizedBox(
-            height: 100,
-            child: Image.asset('assets/images/logo.png'),
-          ),
-        ),
-        title: const Text(
-          'Sandwich Counter',
-          style: heading1,
-        ),
+        title: const Text('Order'), // or your heading1
         actions: [
           IconButton(
             icon: const Icon(Icons.info_outline),
-            tooltip: 'About',
             onPressed: () => Navigator.pushNamed(context, '/about'),
+          ),
+          IconButton(
+            icon: const Icon(Icons.person),
+            onPressed: () => Navigator.pushNamed(context, '/login'),
           ),
         ],
       ),
