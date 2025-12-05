@@ -123,17 +123,51 @@ class _OrderScreenState extends State<OrderScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Order'), // or your heading1
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.info_outline),
-            onPressed: () => Navigator.pushNamed(context, '/about'),
+        title: const Text('Order'),
+        // removed individual action icons — use Drawer instead
+      ),
+      // Added Drawer: menu contains the app icons / routes
+      drawer: Drawer(
+        child: SafeArea(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              DrawerHeader(
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+                child: const Center(
+                  child: Text('Menu', style: heading2),
+                ),
+              ),
+              ListTile(
+                leading: const Icon(Icons.info_outline),
+                title: const Text('About', style: normalText),
+                onTap: () {
+                  Navigator.pop(context); // close drawer
+                  Navigator.pushNamed(context, '/about');
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.person),
+                title: const Text('Login', style: normalText),
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.pushNamed(context, '/login');
+                },
+              ),
+              const Divider(),
+              ListTile(
+                leading: const Icon(Icons.shopping_cart),
+                title: const Text('View Cart', style: normalText),
+                onTap: () {
+                  Navigator.pop(context);
+                  _navigateToCartView();
+                },
+              ),
+            ],
           ),
-          IconButton(
-            icon: const Icon(Icons.person),
-            onPressed: () => Navigator.pushNamed(context, '/login'),
-          ),
-        ],
+        ),
       ),
       body: Center(
         child: SingleChildScrollView(
