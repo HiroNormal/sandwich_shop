@@ -13,10 +13,8 @@ void main() {
       const MaterialApp app = MaterialApp(home: orderScreen);
       await tester.pumpWidget(app);
 
-      // AppBar title updated to 'Order'
       expect(find.text('Order'), findsOneWidget);
 
-      // Only one image is present in the current UI
       expect(find.byType(Image), findsOneWidget);
 
       expect(find.text('Veggie Delight'), findsWidgets);
