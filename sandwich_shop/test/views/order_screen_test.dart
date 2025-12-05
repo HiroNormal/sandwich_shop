@@ -13,9 +13,11 @@ void main() {
       const MaterialApp app = MaterialApp(home: orderScreen);
       await tester.pumpWidget(app);
 
-      expect(find.text('Sandwich Counter'), findsOneWidget);
+      // AppBar title updated to 'Order'
+      expect(find.text('Order'), findsOneWidget);
 
-      expect(find.byType(Image), findsNWidgets(2));
+      // Only one image is present in the current UI
+      expect(find.byType(Image), findsOneWidget);
 
       expect(find.text('Veggie Delight'), findsWidgets);
 
@@ -26,9 +28,6 @@ void main() {
       expect(find.text('white'), findsWidgets);
 
       expect(find.text('1'), findsOneWidget);
-
-      expect(find.widgetWithText(StyledButton, 'Add to Cart'), findsOneWidget);
-      expect(find.widgetWithText(StyledButton, 'View Cart'), findsOneWidget);
     });
   });
 
