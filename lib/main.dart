@@ -9,15 +9,6 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
-  }
-}
-
-class App extends StatelessWidget {
-  const App({super.key});
-
-  @override
-  Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Sandwich Shop App',
       home: Scaffold(
