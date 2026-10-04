@@ -28,13 +28,13 @@ class OrderScreen extends StatefulWidget {
 class _OrderScreenState extends State<OrderScreen> {
   int _quantity = 0;
 
-  void _incrementQuantity() {
+  void _increaseQuantity() {
     if (_quantity < widget.maxQuantity) {
       setState(() => _quantity++);
     }
   }
 
-  void _decrementQuantity() {
+  void _decreaseQuantity() {
     if (_quantity > 0) {
       setState(() => _quantity--);
     }
@@ -56,12 +56,12 @@ class _OrderScreenState extends State<OrderScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
-                  onPressed: _incrementQuantity,
+                  onPressed: _increaseQuantity,
                   child: const Text('Add'),
                 ),
                 const SizedBox(width: 16),
                 ElevatedButton(
-                  onPressed: _decrementQuantity,
+                  onPressed: _decreaseQuantity,
                   child: const Text('Remove'),
                 ),
               ],
