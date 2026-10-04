@@ -19,8 +19,11 @@ class App extends StatelessWidget {
           ),
           backgroundColor: Colors.pink,
           ),    
-        body: const Center(
-          child: OrderItemDisplay(5,'Footlong')),
+        body: const OrderItemDisplay(5, 'Footlong'),
+          floatingActionButton: FloatingActionButton(
+            onPressed: (){},
+            child:const Icon(Icons.add),
+            ),
         ),
       );
   }
